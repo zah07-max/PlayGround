@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#f6f1e9" />
+    <meta
+      name="description"
+      content="Cube Land is a cozy 3D block-matching puzzle game. Tap color blasters, clear connected cube clusters, and unwind. No ads, no timers."
+    />
+    <title>Cube Land — a cozy 3D block puzzle</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f6f1e9'/%3E%3Cpath d='M32 10 54 22v20L32 54 10 42V22z' fill='%23ff9a88'/%3E%3Cpath d='M32 10 54 22 32 34 10 22z' fill='%23ffd166'/%3E%3Cpath d='M32 34v20L10 42V22z' fill='%23a48cf4'/%3E%3C/svg%3E" />
+    <script type="module" crossorigin src="./assets/index-B37IBi-N.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BxOfRR7J.css">
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true">
+      <span class="blob blob-a"></span>
+      <span class="blob blob-b"></span>
+      <span class="blob blob-c"></span>
+    </div>
+
+    <main class="app" id="app">
+      <div class="app-grain" aria-hidden="true"></div>
+
+      <header class="hud">
+        <div class="hud-top">
+          <div class="brand" aria-label="Cube Land">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 40 40" width="32" height="32">
+                <path d="M20 3 35 11.5v17L20 37 5 28.5v-17z" fill="#ff9a88" />
+                <path d="M20 3 35 11.5 20 20 5 11.5z" fill="#ffd166" />
+                <path d="M20 20v17L5 28.5v-17z" fill="#a48cf4" />
+                <path d="M20 20v17l15-8.5v-17z" fill="#7fd6ba" />
+              </svg>
+            </span>
+            <span class="brand-word">Cube<span>Land</span></span>
+          </div>
+
+          <div class="icon-row">
+            <button class="icon-btn" id="restart-btn" type="button" aria-label="Restart level" title="Restart level">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 1 0 3-6.7" />
+                <path d="M3 4v5h5" />
+              </svg>
+            </button>
+            <button class="icon-btn" id="sound-btn" type="button" aria-label="Toggle sound" title="Toggle sound" aria-pressed="true">
+              <svg class="ico-sound-on" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 9v6h4l5 4V5L8 9H4z" />
+                <path d="M17 9.5a4 4 0 0 1 0 5" />
+                <path d="M19.5 7a7 7 0 0 1 0 10" />
+              </svg>
+              <svg class="ico-sound-off" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 9v6h4l5 4V5L8 9H4z" />
+                <path d="m17 10 4 4m0-4-4 4" />
+              </svg>
+            </button>
+            <button class="icon-btn" id="help-btn" type="button" aria-label="How to play" title="How to play">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M9.6 9.2a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.9" />
+                <path d="M12 17.2h.01" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="hud-main">
+          <div class="level-block">
+            <div class="level-chip">
+              <span class="level-kicker">LEVEL <b id="level-number">01</b></span>
+              <span class="level-divider" aria-hidden="true"></span>
+              <span class="level-name" id="level-name">Cube</span>
+            </div>
+            <div class="level-dots" id="level-dots" aria-hidden="true"></div>
+          </div>
+
+          <div class="stats">
+            <div class="stat" id="moves-stat">
+              <span class="stat-label">Moves</span>
+              <strong class="stat-value" id="moves-value">9</strong>
+            </div>
+            <div class="stat stat-score">
+              <span class="stat-label">Score</span>
+              <strong class="stat-value" id="score-value">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="progress-note" id="progress-note">27 blocks</span>
+        </div>
+      </header>
+
+      <section class="stage" id="stage" aria-label="Cube Land 3D play area. Drag to rotate, tap a blaster to fire.">
+        <div class="stage-canvas" id="stage-canvas"></div>
+
+        <div class="combo-badge" id="combo-badge" aria-hidden="true">
+          <span class="combo-x">×</span><b id="combo-value">1.25</b>
+        </div>
+
+        <div class="stage-footer">
+          <div class="hint-pill" id="hint-pill">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 12V6.5a1.5 1.5 0 0 1 3 0V11" />
+              <path d="M11 10.5V5a1.5 1.5 0 0 1 3 0v5.5" />
+              <path d="M14 10.5V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.5a6 6 0 0 1-5.2-3l-1.5-2.7a1.6 1.6 0 0 1 2.7-1.7L8 14" />
+            </svg>
+            <span id="hint-text">Tap a blaster to fire</span>
+          </div>
+          <div class="drag-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4" />
+            </svg>
+            <span>drag to rotate</span>
+          </div>
+        </div>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        <div class="float-layer" id="float-layer" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <!-- Level clear / out of moves -->
+    <div class="overlay" id="result-overlay" aria-hidden="true">
+      <div class="overlay-card" id="result-card" role="dialog" aria-modal="true" aria-labelledby="result-title">
+        <div class="result-glow" aria-hidden="true"></div>
+        <div class="stars" id="result-stars" aria-hidden="true">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="eyebrow" id="result-eyebrow">LEVEL 01 COMPLETE</p>
+        <h1 class="result-title" id="result-title">Level clear!</h1>
+        <p class="result-sub" id="result-sub">Beautifully done.</p>
+
+        <div class="result-score">
+          <span class="result-score-label" id="result-score-label">Level score</span>
+          <strong id="result-score-value">0</strong>
+        </div>
+
+        <div class="result-stats" id="result-stats">
+          <div><span>Moves left</span><b id="result-moves">0</b></div>
+          <div><span>Blocks</span><b id="result-blocks">0</b></div>
+          <div><span>Best</span><b id="result-best">0</b></div>
+        </div>
+
+        <button class="primary-btn" id="result-next" type="button">
+          <span id="result-next-label">Next level</span>
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+        <button class="text-btn" id="result-secondary" type="button">Replay level</button>
+        <p class="tiny-note">No ads. No timers. Just cubes.</p>
+      </div>
+    </div>
+
+    <!-- How to play -->
+    <div class="overlay" id="help-overlay" aria-hidden="true">
+      <div class="overlay-card help-card" role="dialog" aria-modal="true" aria-labelledby="help-title">
+        <div class="help-top">
+          <p class="eyebrow">HOW TO PLAY</p>
+          <button class="icon-btn subtle" id="help-close" type="button" aria-label="Close how to play">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="m6 6 12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+        <h2 id="help-title">A little color.<br />A little calm.</h2>
+        <ol class="help-list">
+          <li><span class="help-num">1</span><p><b>Drag</b> anywhere in the scene to orbit the island.</p></li>
+          <li><span class="help-num">2</span><p><b>Tap a blaster</b> on the rim to fire its color into the structure.</p></li>
+          <li><span class="help-num">3</span><p>One shot clears the whole <b>connected cluster</b> of that color. Big clusters score more.</p></li>
+          <li><span class="help-num">4</span><p>Clear every cube before you run out of <b>moves</b>. Chain clears for a combo.</p></li>
+        </ol>
+        <button class="primary-btn" id="help-got-it" type="button">Got it</button>
+        <p class="tiny-note">Zero ads · Zero timers · Zero pressure</p>
+      </div>
+    </div>
+
+    <div class="sr-only" id="sr-status" role="status" aria-live="polite"></div>
+
+  </body>
+</html>
