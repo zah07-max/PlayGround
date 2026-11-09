@@ -25,9 +25,9 @@ jobs:
       id-token: write
       issues: write
       actions: write
-    uses: denaidark/OhMyGithub/.github/workflows/opencode-prepare.yml@b69cee18134c605988f05c62a6f2873f77814d4d
+    uses: denaidark/OhMyGithub/.github/workflows/opencode-prepare.yml@6f6d1b7b9bdb480e4ef1c32fd5b0fca8814a9003
     with:
-      runtime_ref: b69cee18134c605988f05c62a6f2873f77814d4d
+      runtime_ref: 6f6d1b7b9bdb480e4ef1c32fd5b0fca8814a9003
 
   opencode:
     needs: prepare
@@ -38,9 +38,9 @@ jobs:
       issues: write
       actions: read
       pull-requests: write
-    uses: denaidark/OhMyGithub/.github/workflows/opencode-reusable.yml@b69cee18134c605988f05c62a6f2873f77814d4d
+    uses: denaidark/OhMyGithub/.github/workflows/opencode-reusable.yml@6f6d1b7b9bdb480e4ef1c32fd5b0fca8814a9003
     with:
-      runtime_ref: b69cee18134c605988f05c62a6f2873f77814d4d
+      runtime_ref: 6f6d1b7b9bdb480e4ef1c32fd5b0fca8814a9003
       issue_number: ${{ needs.prepare.outputs.issue_number }}
       request: ${{ needs.prepare.outputs.request }}
       issue_title: ${{ needs.prepare.outputs.issue_title }}
